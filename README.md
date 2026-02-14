@@ -34,7 +34,8 @@ src/
  │    └── App.css
  └── App.js
 ```
- Installation & Setup
+## Installation & Setup
+
  1- Clone the repository:
 ```bash
 git clone https://github.com/Jan030100/Advanced-Todo-Management-Application.git ```
