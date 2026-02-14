@@ -1,11 +1,11 @@
 import React from 'react';
 import TaskItem from './TaskItem';
 
-function TaskList({ tasks }) {
+function TaskList({ tasks, onToggleTask }) {  
   if (tasks.length === 0) {
     return (
       <div className="empty_state">
-        <p>Add your first task</p>
+        <p>No tasks yet. Add your first task!</p>
       </div>
     );
   }
@@ -13,7 +13,11 @@ function TaskList({ tasks }) {
   return (
     <div className="task_list">
       {tasks.map(task => (
-        <TaskItem key={task.id} task={task} />
+        <TaskItem 
+          key={task.id} 
+          task={task} 
+          onToggle={onToggleTask}  
+        />
       ))}
     </div>
   );

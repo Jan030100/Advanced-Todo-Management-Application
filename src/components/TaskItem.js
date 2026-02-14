@@ -1,6 +1,6 @@
 import React from 'react';
 
-function TaskItem({ task }) {
+function TaskItem({ task, onToggle }) {  
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -19,7 +19,7 @@ function TaskItem({ task }) {
           <input
             type="checkbox"
             checked={task.completed}
-            readOnly
+            onChange={() => onToggle(task.id)}  
           />
         </div>
         

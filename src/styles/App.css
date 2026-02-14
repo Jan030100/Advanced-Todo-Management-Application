@@ -136,3 +136,35 @@ button:hover {
   color: #999;
   font-size: 12px;
 }
+
+.task_item {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.task_item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.task_checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #007bff;
+}
+
+.task_item.completed {
+  background: #f0f9f0;
+  border-color: #c3e6cb;
+  opacity: 0.9;
+}
+
+.task_item.completed .task_title {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.task_item.completed .task_description {
+  color: #8a9a8a;
+}

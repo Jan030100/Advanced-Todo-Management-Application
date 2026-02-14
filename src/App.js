@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react'; 
 import useLocalStorage from './hooks/useLocalStorage';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
@@ -18,15 +18,28 @@ function App() {
     setTasks([newTask, ...tasks]);
   };
 
+  const handleToggleTask = useCallback((taskId) => {
+    setTasks(prevTasks => 
+      prevTasks.map(task =>
+        task.id === taskId
+          ? { ...task, completed: !task.completed }
+          : task
+      )
+    );
+  }, []);  
+
   return (
     <div className='App'>
-      <h1>ToDo Management Tool</h1>
+      <h1> ToDo Management Tool</h1>
       
       <TaskForm onAddTask={handleAddTask} />
       
       <div className='tasks_container'>
         <h3>Current Tasks ({tasks.length})</h3>
-        <TaskList tasks={tasks} />
+        <TaskList 
+          tasks={tasks} 
+          onToggleTask={handleToggleTask}  
+        />
       </div>
     </div>
   );
