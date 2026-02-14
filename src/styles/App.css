@@ -168,3 +168,128 @@ button:hover {
 .task_item.completed .task_description {
   color: #8a9a8a;
 }
+
+.delete_btn {
+  background: none;
+  border: 1px solid #ff4444; 
+  color: #ff4444;  
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;  
+}
+
+.delete_btn:hover {
+  background: #ff4444;  
+  color: white;  
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(255, 68, 68, 0.3);
+}
+
+.modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  animation: slideIn 0.3s ease;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.modal h3 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.modal p {
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.modal strong {
+  color: #dc3545;
+}
+
+.modal_actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.modal_btn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.modal_btn.cancel {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.modal_btn.cancel:hover {
+  background: #d0d0d0;
+  transform: translateY(-2px);
+}
+
+.modal_btn.confirm {
+  background: #dc3545;
+  color: white;
+}
+
+.modal_btn.confirm:hover {
+  background: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.task_item .task_content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  position: relative;
+}
+
+.task_item .task_details {
+  flex: 1;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import TaskItem from './TaskItem';
 
-function TaskList({ tasks, onToggleTask }) {  
+function TaskList({ tasks, onToggleTask, onDeleteTask }) { 
   if (tasks.length === 0) {
     return (
       <div className="empty_state">
@@ -16,7 +16,8 @@ function TaskList({ tasks, onToggleTask }) {
         <TaskItem 
           key={task.id} 
           task={task} 
-          onToggle={onToggleTask}  
+          onToggle={onToggleTask}
+          onDelete={onDeleteTask}  
         />
       ))}
     </div>
