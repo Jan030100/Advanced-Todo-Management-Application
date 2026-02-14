@@ -5,7 +5,8 @@ function TaskList({ tasks, onToggleTask, onDeleteTask }) {
   if (tasks.length === 0) {
     return (
       <div className="empty_state">
-        <p>No tasks yet. Add your first task!</p>
+        <p>No tasks to show</p>
+        <small>Add a new task or change the filter</small>
       </div>
     );
   }

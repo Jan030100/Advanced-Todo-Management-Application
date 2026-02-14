@@ -293,3 +293,94 @@ button:hover {
 .task_item .task_details {
   flex: 1;
 }
+
+.filter_buttons {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.filter_btn {
+  background: white;
+  border: 2px solid #e0e0e0;
+  color: #333;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.filter_btn:hover {
+  border-color: #007bff;
+  color: #007bff;
+  transform: translateY(-2px);
+}
+
+.filter_btn.active {
+  background: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.filter_btn.active:hover {
+  background: #0056b3;
+  border-color: #0056b3;
+  color: white;
+}
+
+.stats_container {
+  display: flex;
+  justify-content: space-around;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #333;
+  border: 1px solid #e9ecef;
+}
+
+.stats_container span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.stats_container span:first-child {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.task_item.completed .task_title {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.task_item.completed .task_description {
+  color: #8a9a8a;
+}
+
+.empty_state {
+  text-align: center;
+  color: #999;
+  padding: 40px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  margin: 20px 0;
+  border: 2px dashed #dee2e6;
+}
+
+.empty_state p {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.empty_state small {
+  color: #adb5bd;
+  font-size: 14px;
+}
