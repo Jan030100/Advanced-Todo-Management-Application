@@ -33,7 +33,7 @@ src/
  ├── styles/
  │    └── App.css
  └── App.js
-
+```
  Installation & Setup
  1- Clone the repository:
 ```bash
