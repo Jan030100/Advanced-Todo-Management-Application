@@ -38,7 +38,8 @@ src/
 
  1- Clone the repository:
 ```bash
-git clone https://github.com/Jan030100/Advanced-Todo-Management-Application.git ```
+git clone https://github.com/Jan030100/Advanced-Todo-Management-Application.git
+```
 2- Install dependencies:
 ```bash
 npm install
