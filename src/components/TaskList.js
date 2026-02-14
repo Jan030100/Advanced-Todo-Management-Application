@@ -2,6 +2,7 @@ import React from 'react';
 import TaskItem from './TaskItem';
 
 function TaskList({ tasks, onToggleTask, onDeleteTask }) { 
+  // Show friendly message when no tasks match current filter
   if (tasks.length === 0) {
     return (
       <div className="empty_state">
@@ -15,7 +16,7 @@ function TaskList({ tasks, onToggleTask, onDeleteTask }) {
     <div className="task_list">
       {tasks.map(task => (
         <TaskItem 
-          key={task.id} 
+          key={task.id} // Unique key helps React optimize re-renders
           task={task} 
           onToggle={onToggleTask}
           onDelete={onDeleteTask}  

@@ -1,26 +1,31 @@
 import React, { useState } from 'react';
 
 function TaskForm({ onAddTask }) {
+  // Track form inputs locally before submitting to parent
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  // Show validation feedback without disrupting parent state
   const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page refresh
     
+    // Validate before sending to parent - title is required by business logic
     if (!title.trim()) {
       setError('Please add task name');
-      return;
+      return; // Stop submission if validation fails
     }
 
+    // Send clean data to parent (trimmed whitespace)
     onAddTask({
       title: title.trim(),
       description: description.trim(),
     });
 
+    // Clear form after successful submission for better UX
     setTitle('');
     setDescription('');
-    setError('');
+    setError(''); // Clear any previous errors
   };
 
   return (
@@ -32,7 +37,7 @@ function TaskForm({ onAddTask }) {
           value={title}
           onChange={(e) => {
             setTitle(e.target.value);
-            if (error) setError('');
+            if (error) setError(''); // Clear error as soon as user types
           }}
         />
       </div>

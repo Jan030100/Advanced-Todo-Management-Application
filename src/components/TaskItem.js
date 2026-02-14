@@ -1,6 +1,7 @@
 import React, { useState } from 'react';  
 
 function TaskItem({ task, onToggle, onDelete }) {  
+  // Control confirmation modal visibility - prevents accidental deletions
   const [showModal, setShowModal] = useState(false); 
 
   const formatDate = (dateString) => {
@@ -15,16 +16,16 @@ function TaskItem({ task, onToggle, onDelete }) {
   };
 
   const handleDeleteClick = () => {
-    setShowModal(true);
+    setShowModal(true); // Show confirmation first, don't delete immediately
   };
 
   const handleConfirmDelete = () => {
-    onDelete(task.id);
+    onDelete(task.id); // Actual delete only happens after user confirms
     setShowModal(false);
   };
 
   const handleCancelDelete = () => {
-    setShowModal(false);
+    setShowModal(false); // Just close modal, keep the task
   };
 
   return (
@@ -35,13 +36,13 @@ function TaskItem({ task, onToggle, onDelete }) {
             <input
               type="checkbox"
               checked={task.completed}
-              onChange={() => onToggle(task.id)}
+              onChange={() => onToggle(task.id)} // Toggle completion status
             />
           </div>
           
           <div className="task_details">
             <h4 className="task_title">{task.title}</h4>
-            {task.description && (
+            {task.description && ( // Only show description if it exists
               <p className="task_description">{task.description}</p>
             )}
             <small className="task_date">
@@ -59,6 +60,7 @@ function TaskItem({ task, onToggle, onDelete }) {
         </div>
       </div>
 
+      {/* Modal overlay - conditionally rendered only when needed */}
       {showModal && (
         <div className="modal_overlay">
           <div className="modal">
@@ -66,7 +68,7 @@ function TaskItem({ task, onToggle, onDelete }) {
             <p>
               Are you sure you want to delete: <strong>"{task.title}"</strong>?
               <br />
-              This action cannot be undone.
+              This action cannot be undone. {/* Warn user this is permanent */}
             </p>
             <div className="modal_actions">
               <button className="modal_btn cancel" onClick={handleCancelDelete}>
