@@ -1,6 +1,7 @@
 import React from 'react';
 import useLocalStorage from './hooks/useLocalStorage';
 import TaskForm from './components/TaskForm';
+import './styles/App.css'; 
 
 function App() {
   const [tasks, setTasks] = useLocalStorage('tasks', []);
@@ -16,10 +17,10 @@ function App() {
   };
 
   return (
-    <div>
+    <div className='App'>
       <h1>ToDo Mangment Tool</h1>
         <TaskForm onAddTask={handleAddTask} />
-        <div>
+        <div className='tasks_container'>
         <h3>Current Tasks</h3>
         <pre>{JSON.stringify(tasks, null, 2)}</pre>
       </div>
