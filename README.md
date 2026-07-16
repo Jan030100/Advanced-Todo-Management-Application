@@ -58,3 +58,4 @@ The build output will be generated in the `build` folder.
 
 - React documentation: https://reactjs.org/
 - Create React App docs: https://create-react-app.dev/docs/getting-started/
+
