@@ -1,14 +1,14 @@
 import React from 'react';
 import TaskItem from './TaskItem';
+import EmptyState from './EmptyState';
 
-function TaskList({ tasks, onToggleTask, onDeleteTask }) { 
-  // Show friendly message when no tasks match current filter
+function TaskList({ tasks, onToggleTask, onDeleteTask }) {
   if (tasks.length === 0) {
     return (
-      <div className="empty_state">
-        <p>No tasks to show</p>
-        <small>Add a new task or change the filter</small>
-      </div>
+      <EmptyState
+        message="No tasks to show"
+        detail="Add a new task or change the filter"
+      />
     );
   }
 

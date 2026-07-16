@@ -1,103 +1,122 @@
-import React, { useCallback, useMemo, useState } from 'react'; 
+import React, { useCallback, useMemo, useState } from 'react';
 import useLocalStorage from './hooks/useLocalStorage';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
-import FilterButton from './components/FilterButton';
+import FilterButtons from './components/FilterButton';
+import TaskStats from './components/TaskStats';
 import './styles/App.css';
 
+
 function App() {
-  // Persist tasks across browser sessions
   const [tasks, setTasks] = useLocalStorage('tasks', []);
-  // Track which filter is currently active
   const [filter, setFilter] = useState('all');
 
-  const handleAddTask = (taskData) => {
-    // Use timestamp as ID to ensure uniqueness without backend
+  const handleAddTask = useCallback((taskData) => {
     const newTask = {
       id: Date.now().toString(),
-      ...taskData,
+      title: taskData.title,
+      description: taskData.description,
       completed: false,
       createdAt: new Date().toISOString(),
     };
 
-    // Place new tasks at the top for better UX
-    setTasks([newTask, ...tasks]);
-  };
+    setTasks((prevTasks) => [newTask, ...prevTasks]);
+  }, [setTasks]);
 
-  // Prevent recreating function on every render since it's passed to children
   const handleToggleTask = useCallback((taskId) => {
-    // Use functional update to avoid stale closure issues
-    setTasks(prevTasks => 
-      prevTasks.map(task =>
-        task.id === taskId
-          ? { ...task, completed: !task.completed }
-          : task
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, completed: !task.completed } : task
       )
     );
   }, [setTasks]);
 
-  // Same optimization for delete to prevent unnecessary re-renders
   const handleDeleteTask = useCallback((taskId) => {
-    setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
   }, [setTasks]);
 
-  // Filter change handler doesn't need dependencies
-  const handleFilterChange = useCallback((newFilter) => {
-    setFilter(newFilter);
+  const handleFilterChange = useCallback((selectedFilter) => {
+    setFilter(selectedFilter);
   }, []);
 
-  // Only filter tasks when tasks or filter actually change
   const filteredTasks = useMemo(() => {
-    console.log('Filtering tasks...');
     switch (filter) {
       case 'completed':
-        return tasks.filter(task => task.completed);
+        return tasks.filter((task) => task.completed);
       case 'uncompleted':
-        return tasks.filter(task => !task.completed);
+        return tasks.filter((task) => !task.completed);
       default:
         return tasks;
     }
-  }, [tasks, filter]); 
+  }, [tasks, filter]);
 
-  // Avoid recalculating stats on every render
   const stats = useMemo(() => {
     const total = tasks.length;
-    const completed = tasks.filter(t => t.completed).length;
-    const uncompleted = total - completed;
-    return { total, completed, uncompleted };
+    const completed = tasks.filter((task) => task.completed).length;
+    return {
+      total,
+      completed,
+      uncompleted: total - completed,
+    };
   }, [tasks]);
+
+  const taskHeading = filter === 'all'
+    ? 'All tasks'
+    : filter === 'completed'
+      ? 'Completed tasks'
+      : 'Pending tasks';
 
   return (
     <div className='App'>
-      <h1>ToDo Management Tool</h1>
-      
-      <TaskForm onAddTask={handleAddTask} />
-      
-      <div className="stats_container">
-        <span>Total: {stats.total}</span>
-        <span> Completed: {stats.completed}</span>
-        <span> Uncompleted: {stats.uncompleted}</span>
-      </div>
+      <header className='app_header'>
+        <p className='eyebrow'>Task management reimagined</p>
+        <h1>Advanced ToDo Dashboard</h1>
+        <p className='app_intro'>Plan your day, stay focused, and keep progress visible with a cleaner task workspace.</p>
+      </header>
 
-      <FilterButton
-        currentFilter={filter} 
-        onFilterChange={handleFilterChange} 
-      />
-      
-      <div className='tasks_container'>
-        <h3>
-          {/* Show appropriate heading based on current filter */}
-          {filter === 'all' && 'All Tasks'}
-          {filter === 'completed' && 'Completed Tasks'}
-          {filter === 'uncompleted' && 'Uncompleted Tasks'}
-          ({filteredTasks.length})
-        </h3>
-        <TaskList 
-          tasks={filteredTasks}  
+      <section className='dashboard_top'>
+        <div className='panel panel_form'>
+          <div className='panel_header'>
+            <h2>Add a new task</h2>
+            <p>Capture what matters and keep the list lean.</p>
+          </div>
+          <TaskForm onAddTask={handleAddTask} />
+        </div>
+
+        <div className='panel panel_stats'>
+          <div className='panel_header'>
+            <h2>Quick overview</h2>
+            <p>Track your task load and completed progress at a glance.</p>
+          </div>
+          <TaskStats
+            total={stats.total}
+            completed={stats.completed}
+            uncompleted={stats.uncompleted}
+          />
+        </div>
+      </section>
+
+      <section className='tasks_section'>
+        <div className='tasks_header'>
+          <div>
+            <p className='tasks_subtitle'>Current view</p>
+            <h2 className='tasks_title'>
+              {taskHeading} <span className='task_count'>({filteredTasks.length})</span>
+            </h2>
+          </div>
+
+          <FilterButtons
+            currentFilter={filter}
+            onFilterChange={handleFilterChange}
+          />
+        </div>
+
+        <TaskList
+          tasks={filteredTasks}
           onToggleTask={handleToggleTask}
           onDeleteTask={handleDeleteTask}
         />
-      </div>
+      </section>
     </div>
   );
 }
